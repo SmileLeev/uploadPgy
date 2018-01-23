@@ -1,0 +1,15 @@
+group 'smile.lee.upload'
+version '1.0'
+
+apply plugin: 'groovy'
+apply from: 'upload.gradle'
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.android.tools.build:gradle:2.3.3'
+}

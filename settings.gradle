@@ -1,0 +1,4 @@
+include 'plugin'
+include 'sample'
+findProject(':sample')?.name = 'Upload'
+
