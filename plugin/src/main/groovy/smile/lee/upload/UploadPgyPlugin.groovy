@@ -38,7 +38,8 @@ class UploadPgyPlugin implements Plugin<Project> {
         project.afterEvaluate {
             project.android.applicationVariants.each { ApkVariant variant ->
                 println("each apk variant:${variant.name}")
-                if (variant.buildType.name.equalsIgnoreCase("release")) {
+                def name = variant.buildType.name
+                if (name.equalsIgnoreCase("release") || name.equalsIgnoreCase("debug")) {
                     final def variantPluginTaskName = "assemblePgy${variant.name.capitalize()}"
                     final def configAction = new UploadPgyTask.ConfigAction(project, variant)
 

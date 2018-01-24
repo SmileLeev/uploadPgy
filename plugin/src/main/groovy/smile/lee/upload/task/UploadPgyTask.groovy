@@ -32,7 +32,7 @@ class UploadPgyTask extends DefaultTask {
     @TaskAction
     def anyWordJustAnno() {
         println("begin to upload ${project.pgyApk.message}")
-        if (!originApkFile.exists()) {
+        if (!getOriginApkFile().exists()) {
             println('apk is not exists!')
             return
         }
@@ -44,7 +44,7 @@ class UploadPgyTask extends DefaultTask {
             println('api key is necessary!')
             return
         }
-        def process = "curl -F file=@${originApkFile.path} -F uKey=${project.pgyApk.pgy_uk} -F _api_key=${project.pgyApk.pgy_api} -F installType=2 -F password=${project.pgyApk.apk_pwd} ${project.pgyApk.pgy_url}".execute()
+        def process = "curl -F file=@${getOriginApkFile().path} -F uKey=${project.pgyApk.pgy_uk} -F _api_key=${project.pgyApk.pgy_api} -F installType=2 -F password=${project.pgyApk.apk_pwd} ${project.pgyApk.pgy_url}".execute()
         process.in.eachLine { line ->
             println line
         }
@@ -64,7 +64,6 @@ class UploadPgyTask extends DefaultTask {
 
         @Override
         void execute(UploadPgyTask assemblePluginTask) {
-            assemblePluginTask.originApkFile variant.outputs[0].outputFile
             ConventionMappingHelper.map(assemblePluginTask, "appPackageName") {
                 variant.applicationId
             }
